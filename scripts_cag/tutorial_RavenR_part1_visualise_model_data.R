@@ -8,6 +8,17 @@ rm(list=ls()); a=getSrcDirectory(function(x) {x}) ; setwd(a)
 # Load the RavenR library from the console and view its contents with the following commands:
 library(RavenR)
 ls("package:RavenR") 
+install.packages('httr')
+library(httr)
+git_path = 'https://github.com/calvarezgarreton/RavenR/tree/developer/adapted_fn'
+req <- GET(git_path)
+stop_for_status(req)
+filelist <- unlist(lapply(content(req)$tree, "[", "path"), use.names = F)
+grep("Matteo/literature/", filelist, value = TRUE, fixed = TRUE)
+# [1] "Matteo/literature/Subsetting.pdf"     
+# [2] "Matteo/literature/datatable-intro.pdf"
+
+source('https://raw.github.com/TonyLadson/BaseflowSeparation_LyneHollick/master/BFI.R')
 
 # path to data
 # read in hydrograph sample csv data from RavenR package
