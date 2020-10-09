@@ -7,30 +7,23 @@ rm(list=ls()); a=getSrcDirectory(function(x) {x}) ; setwd(a)
 
 # Load the RavenR library from the console and view its contents with the following commands:
 library(RavenR)
-ls("package:RavenR") 
-install.packages('httr')
-library(httr)
-git_path = 'https://github.com/calvarezgarreton/RavenR/tree/developer/adapted_fn'
-req <- GET(git_path)
-stop_for_status(req)
-filelist <- unlist(lapply(content(req)$tree, "[", "path"), use.names = F)
-grep("Matteo/literature/", filelist, value = TRUE, fixed = TRUE)
-# [1] "Matteo/literature/Subsetting.pdf"     
-# [2] "Matteo/literature/datatable-intro.pdf"
+# ls("package:RavenR") 
+source("https://raw.githubusercontent.com/calvarezgarreton/RavenR/developer/adapted_fn/adapted_functions.R")
 
-source('https://raw.github.com/TonyLadson/BaseflowSeparation_LyneHollick/master/BFI.R')
+
 
 # path to data
 # read in hydrograph sample csv data from RavenR package
 ff <- system.file("extdata","run1_Hydrographs.csv", package="RavenR")
 ff <- system.file("extdata","run1_ForcingFunctions.csv",package="RavenR") 
-ff <- "/Users/calvarez/Dropbox/RavenR/inst/extdata/run1_ForcingFunctions.csv" # replace with your own file
+# ff <- "/Users/calvarez/Dropbox/RavenR/inst/extdata/run1_ForcingFunctions.csv" # replace with your own file
+ff <- "/Users/calvarez/Dropbox/GitHub/RavenR/inst/extdata/run1_ForcingFunctions.csv" # replace with your own file
 
 # The read functions have been modified in order to avoid problemas with time zone differences.
 # 06 octiber 2020 - C. Alvarez
-fn_path  = "/Users/calvarez/Dropbox/RavenR/RavenR_adapted"
-files.sources = paste0(fn_path,'/',list.files(fn_path))
-sapply(files.sources, source)
+# fn_path  = "/Users/calvarez/Dropbox/RavenR/RavenR_adapted"
+# files.sources = paste0(fn_path,'/',list.files(fn_path))
+# sapply(files.sources, source)
 
 ff_data <- forcings.read.tz(ff, tz="GMT")
 head(ff_data$forcings[,1:6])
